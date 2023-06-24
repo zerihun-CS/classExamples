@@ -1,0 +1,42 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+        numbers = [3, 4, 5, 4, 5, 4, 53, 5, 5, 8]
+
+
+        function mostRepeated(arry) {
+            let count = 0
+            let highestCount = 0
+            let highestIndex = -1
+            for (let i = 0; i < arry.length; i++) {
+                count = 0
+                for (let j = 0; j < arry.length; j++) {
+                    if (arry[i] == arry[j]) {
+                        count++
+                    }
+                }
+                if (highestCount < count) {
+                    highestCount = count
+                    highestIndex = 5
+                }
+                console.log(count + '  ' + arry[i])
+            }
+            console.log(highestCount + '  ')
+        }
+
+
+        mostRepeated([34, 3, 4, 3, 5, 4, 6, 5, 6, 56, 34, 34, 3, 3, 3])
+    </script>
+</body>
+
+</html>

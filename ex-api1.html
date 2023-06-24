@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Random Useless Fact</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+        }
+        
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            color: #333;
+        }
+        
+        #factContainer {
+            margin-top: 40px;
+        }
+        
+        #factText {
+            font-size: 24px;
+        }
+        
+        #newFactBtn {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Random Useless Fact</h1>
+        <div id="factContainer">
+            <p id="factText">Fetching random fact...</p>
+        </div><button id="newFactBtn">New Fact</button></div>
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', getFact);
+        document.getElementById('newFactBtn').addEventListener('click', getFact);
+
+        function getFact() {
+            const factTextElement = document.getElementById('factText');
+            factTextElement.textContent = 'Fetching random fact...';
+
+            fetch('https://uselessfacts.jsph.pl/api/v2/facts/random?language=en')
+                .then((response) => response.json())
+                .then((data) => {
+                    const fact = data.text;
+                    factTextElement.textContent = fact;
+                })
+                .catch((error) => {
+                    factTextElement.textContent = 'Error fetching fact.';
+                    console.log('Error:', error);
+                });
+        }
+    </script>
+</body>
+
+</html>

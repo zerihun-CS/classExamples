@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Quote Cards</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            color: #333;
+        }
+        
+        #quoteContainer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 40px;
+        }
+        
+        .quoteCard {
+            width: 300px;
+            margin: 10px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .quoteText {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .quoteAuthor {
+            font-size: 14px;
+            color: #888;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Quote Cards</h1>
+        <div id="quoteContainer"></div><button id="newQuotesBtn">New Quotes</button></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', getQuotes);
+        document.getElementById('newQuotesBtn').addEventListener('click', getQuotes);
+
+        const getQuotes = () => {
+            const quoteContainer = document.getElementById('quoteContainer');
+            quoteContainer.innerHTML = '';
+
+            fetch('https://type.fit/api/quotes')
+                .then((response) => response.json())
+                .then((data) => {
+                    data.forEach((quoteData) => {
+                        const text = quoteData.text || 'Unknown';
+                        const author = quoteData.author || 'Anonymous';
+
+                        const quoteCard = createQuoteCard(text, author);
+                        quoteContainer.appendChild(quoteCard);
+                    });
+                })
+                .catch((error) => {
+                    console.log('Error:', error);
+                });
+        }
+
+        function createQuoteCard(text, author) {
+            const quoteCard = document.createElement('div');
+            quoteCard.classList.add('quoteCard');
+
+            const quoteText = document.createElement('p');
+            quoteText.classList.add('quoteText');
+            quoteText.textContent = text;
+
+            const quoteAuthor = document.createElement('p');
+            quoteAuthor.classList.add('quoteAuthor');
+            quoteAuthor.textContent = '- ' + author;
+
+            quoteCard.appendChild(quoteText);
+            quoteCard.appendChild(quoteAuthor);
+
+            return quoteCard;
+        }
+    </script>
+</body>
+
+
+
+</html>
